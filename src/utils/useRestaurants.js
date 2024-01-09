@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const useRestaurants = () => {
   const [allRestaurants, setAllRestaurants] = useState(null);
   const [filterdRestaurants, setFilterdRestaurants] = useState(null);
-
+  const [bestOffer, setBestOffer] = useState(null);
   useEffect(() => {
     getRestarants();
   }, []);
@@ -11,7 +11,10 @@ const useRestaurants = () => {
   async function getRestarants() {
     const response = await fetch(FETCH_ALL_RESTAURANTS);
     const json = await response.json();
-    console.log(json);
+    // console.log();
+
+    setBestOffer(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
+
     setAllRestaurants(
       json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
@@ -20,6 +23,6 @@ const useRestaurants = () => {
     );
   }
 
-  return [allRestaurants, filterdRestaurants, setFilterdRestaurants];
+  return [bestOffer, allRestaurants, filterdRestaurants, setFilterdRestaurants];
 };
 export default useRestaurants;

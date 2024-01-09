@@ -6,6 +6,9 @@ module.exports = {
       fontFamily: {
         sans: ["ProximaNova", "Arial", "Helvetica Neue", "sans-serif"],
       },
+      backgroundColor: {
+        "white-smoke": "whitesmoke",
+      },
     },
   },
   plugins: [],

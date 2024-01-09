@@ -6,16 +6,17 @@ import { filterData } from "../utils/helper";
 import useRestaurants from "../utils/useRestaurants";
 import { FaSearch } from "react-icons/fa";
 import useOnline from "../utils/useOnline";
+import Carousel from "./Carousel";
 
 const Body = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [allRestaurants, filterdRestaurants, setFilterdRestaurants] =
+  const [bestOffer, allRestaurants, filterdRestaurants, setFilterdRestaurants] =
     useRestaurants([]);
 
   if (!allRestaurants) return null;
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl mx-auto mt-28">
       <div className="p-5 m-2 flex justify-end">
         <input
           type="text"
@@ -34,10 +35,11 @@ const Body = () => {
           <FaSearch />
         </button>
       </div>
+      <Carousel bestOffer={bestOffer} />
       {filterdRestaurants?.length === 0 ? (
         <Shimmer />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-20">
           {filterdRestaurants.map((restaurant) => (
             <Link
               to={"/restaurant/" + restaurant.info.id}
