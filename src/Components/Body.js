@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import RestaurantCard from "./RestaurantCard";
-import Shimmer from "./Shimmer";
+import { Shimmer } from "./Shimmer";
 import { Link } from "react-router-dom";
 import { filterData } from "../utils/helper";
 import useRestaurants from "../utils/useRestaurants";
@@ -10,7 +10,7 @@ import Carousel from "./Carousel";
 
 const Body = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [bestOffer, allRestaurants, filterdRestaurants, setFilterdRestaurants] =
+  const [category, allRestaurants, filterdRestaurants, setFilterdRestaurants] =
     useRestaurants([]);
 
   if (!allRestaurants) return null;
@@ -35,7 +35,7 @@ const Body = () => {
           <FaSearch />
         </button>
       </div>
-      <Carousel bestOffer={bestOffer} />
+      <Carousel category={category} />
       {filterdRestaurants?.length === 0 ? (
         <Shimmer />
       ) : (

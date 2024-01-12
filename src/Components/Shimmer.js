@@ -1,8 +1,24 @@
 import React from "react";
-import { ShimmerSimpleGallery } from "react-shimmer-effects";
+import {
+  ShimmerSimpleGallery,
+  ShimmerTitle,
+  ShimmerPostItem,
+} from "react-shimmer-effects";
 
-const Shimmer = () => {
-  return <ShimmerSimpleGallery card imageHeight={300} caption />;
+export const Shimmer = () => {
+  return (
+    <ShimmerPostItem
+      card
+      title
+      cta
+      imageType="thumbnail"
+      imageWidth={100}
+      imageHeight={100}
+      contentCenter
+    />
+  );
 };
 
-export default Shimmer;
+export const LocationShimmer = () => {
+  return <ShimmerTitle line={1} gap={30} variant="primary" />;
+};

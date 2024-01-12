@@ -2,31 +2,35 @@ import React, { useState } from "react";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { IMG_CDN_URL } from "../config";
 
-const Carousel = ({ bestOffer }) => {
+const Carousel = ({ category }) => {
+  const itemsPerClick = 3.5; // Number of items to show per click
+  const minItemsToShow = 6; // Minimum number of items to show on the screen
   const [currentIndex, setCurrentIndex] = useState(0);
   const [nextClicked, setNextClicked] = useState(false);
 
   const next = () => {
-    if (!nextClicked) {
-      setCurrentIndex((prevIndex) =>
-        prevIndex < bestOffer.length - 1 ? prevIndex + 1 : prevIndex
-      );
+    setCurrentIndex((prevIndex) => {
+      const newIndex = (prevIndex + itemsPerClick) % category.length;
       setNextClicked(true);
-    }
+      return newIndex;
+    });
   };
 
   const prev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
-    setNextClicked(false);
+    setCurrentIndex((prevIndex) => {
+      const newIndex =
+        (prevIndex - itemsPerClick + category.length) % category.length;
+      setNextClicked(false);
+      return newIndex;
+    });
   };
 
-  const itemWidth = 500;
-  const carouselContentWidth = bestOffer.length * itemWidth;
+  const itemWidth = 200;
 
   return (
-    <div className="my-carousel overflow-hidden mx-auto max-w-6xl ">
+    <div className="my-carousel overflow-hidden mx-auto max-w-6xl relative">
       <div className="flex items-center justify-between mb-4">
-        <h5 className="text-lg font-bold mr-4">Best offers for you</h5>
+        <h5 className="text-lg font-bold mr-4">What's on your mind?</h5>
         <div className="flex items-center space-x-2 ml-auto">
           <button
             className={`bg-white-smoke rounded-full p-2 ${
@@ -39,30 +43,34 @@ const Carousel = ({ bestOffer }) => {
           </button>
           <button
             className={`bg-white-smoke rounded-full p-2 ${
-              nextClicked || currentIndex === bestOffer.length - 1
+              currentIndex + itemsPerClick >= category.length ||
+              currentIndex + minItemsToShow >= category.length
                 ? "pointer-events-none opacity-50"
                 : ""
             }`}
             onClick={next}
-            disabled={nextClicked || currentIndex === bestOffer.length - 1}
+            disabled={
+              currentIndex + itemsPerClick >= category.length ||
+              currentIndex + minItemsToShow >= category.length
+            }
           >
             <GrFormNextLink />
           </button>
         </div>
       </div>
       <div
-        className="my-carousel-content flex overflow-x-auto transition-transform duration-500 ease-in-out"
+        className="flex transition-transform duration-500 ease-in-out overflow-x-auto"
         style={{
-          width: `${carouselContentWidth}px`,
+          width: `${category.length * itemWidth}px`,
           transform: `translateX(-${currentIndex * itemWidth}px)`,
         }}
       >
-        {bestOffer.map((item, index) => (
+        {category.map((item, index) => (
           <img
             key={index}
             src={IMG_CDN_URL + item.imageId}
             alt={`Carousel Item ${index + 1}`}
-            className="my-carousel-item flex w-500 h-56 mr-10 overflow-hidden"
+            className="my-carousel-item w-full mr-10 overflow-auto rounded-full"
           />
         ))}
       </div>

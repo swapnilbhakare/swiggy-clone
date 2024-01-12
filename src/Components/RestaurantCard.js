@@ -1,12 +1,15 @@
 import React from "react";
 import { IMG_CDN_URL } from "../config";
 import { MdStars } from "react-icons/md";
-
+import { BsDot } from "react-icons/bs";
+import { Shimmer } from "./Shimmer";
 const RestaurantCard = ({ restaurant }) => {
   const cuisinesText = restaurant.cuisines.join(", ");
-
+  if (!restaurant) {
+    return <Shimmer />;
+  }
   return (
-    <div className="relative w-full md:w-70 md:h-auto mx-auto bg-white overflow-hidden transition-all duration-300 ease-in-out transform hover:scale-95 font-sans">
+    <div className="relative w-full md:w-70 md:h-auto mx-auto bg-white overflow-hidden transition-all duration-300 ease-in-out transform hover:scale-95 font-sans text-gray-600">
       <div className="relative">
         <img
           className="w-full h-48 md:h-36 object-cover rounded-2xl transition-all duration-300 ease-in-out"
@@ -25,7 +28,7 @@ const RestaurantCard = ({ restaurant }) => {
         </h2>
         <h6 className="flex items-center font-bold whitespace-nowrap">
           <MdStars className="text-green-500 text-lg font-bold mr-1" />{" "}
-          {restaurant.avgRating} {restaurant.sla.deliveryTime}mins
+          {restaurant.avgRating} <BsDot /> {restaurant.sla.deliveryTime} mins
         </h6>
         <p className="from-neutral-400 text-light text-xs md:text-sm truncate">
           {cuisinesText}
