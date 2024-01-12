@@ -22,7 +22,7 @@ const Modal = ({
     if (direction === "left") {
       return "translateX(-120%)";
     } else if (direction === "right") {
-      return "translateX(-120%)";
+      return "translateX(120%)";
     }
 
     return "translateX(0%)";
