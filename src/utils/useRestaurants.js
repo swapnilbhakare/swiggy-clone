@@ -11,7 +11,6 @@ const useRestaurants = () => {
   async function getRestarants() {
     const response = await fetch(FETCH_ALL_RESTAURANTS);
     const json = await response.json();
-    console.log(json);
 
     setCategory(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
 

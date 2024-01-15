@@ -1,54 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
 import { LocationShimmer } from "./Shimmer";
 import Modal from "./Modal/Modal";
 import SearchLocation from "./SearchLocaton";
+import useGeoLocation from "../utils/useGeoLocation.js";
+import { useModal } from "../utils/ModalContext.js";
 
 const Geolocation = () => {
-  const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
-  const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
+  const { isModalOpen, openModal, closeModal, modalContent } = useModal();
+  const { truncatedArea, error, location, setLocation } = useGeoLocation();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if ("geolocation" in navigator) {
-          const position = await new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(resolve, reject, {
-              timeout: 10000,
-            });
-          });
-
-          const { latitude, longitude } = position.coords;
-          const reverseGeocodingURL = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
-          const response = await fetch(reverseGeocodingURL);
-
-          if (!response.ok) {
-            throw new Error("Failed to fetch location data");
-          }
-
-          const reverseData = await response.json();
-
-          setLocation({
-            city: reverseData.address.city,
-            area: reverseData.display_name,
-          });
-        } else {
-          throw new Error("Geolocation is not supported by your browser");
-        }
-      } catch (error) {
-        console.error("Error:", error.message);
-        setError("Failed to fetch location");
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const truncatedArea =
-    location && location.area.length > 32
-      ? location.area.slice(0, 28) + "..."
-      : location && location.area;
+  const handleLocationClick = () => {
+    openModal(
+      <SearchLocation closeModal={closeModal} setLocation={setLocation} />
+    );
+  };
 
   return (
     <div>
@@ -58,7 +24,7 @@ const Geolocation = () => {
         </p>
       ) : location ? (
         <p
-          onClick={() => setIsLocationModalOpen(true)}
+          onClick={handleLocationClick}
           className="flex items-center justify-center ml-4 transition duration-300 cursor-pointer group"
         >
           <span className="font-bold text-gray-600 text-base underline mr-2 transition duration-300  ease-in-out group-hover:text-orange-500">
@@ -71,13 +37,9 @@ const Geolocation = () => {
         <LocationShimmer />
       )}
 
-      {isLocationModalOpen && (
-        <Modal
-          onClose={() => setIsLocationModalOpen(false)}
-          direction="left"
-          height="100vh"
-        >
-          <SearchLocation />
+      {isModalOpen && (
+        <Modal onClose={closeModal} direction="left" height="100vh">
+          <SearchLocation closeModal={closeModal} setLocation={setLocation} />
         </Modal>
       )}
     </div>

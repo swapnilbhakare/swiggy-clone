@@ -7,6 +7,8 @@ export const IMG_CDN_URL =
 export const FETCH_MENU_URL =
   "https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=18.5203896&lng=73.8567005&restaurantId=";
 
+export const GEO_LOCATION_URL = "https://nominatim.openstreetmap.org";
+
 export const LOGO = (
   <svg
     className="_8pSp- h-28 "

@@ -11,16 +11,19 @@ import { Provider } from "react-redux";
 import store from "./Store/store";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import React, { lazy, Suspense } from "react";
+import { ModalProvider } from "./utils/ModalContext";
 const About = lazy(() => import("./Components/About"));
 const App = () => {
   return (
-    <Provider store={store}>
-      <div className="bg-white min-h-screen">
-        <Header />
-        <Outlet />
-        <Footer />
-      </div>
-    </Provider>
+    <ModalProvider>
+      <Provider store={store}>
+        <div className="bg-white min-h-screen">
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
+      </Provider>
+    </ModalProvider>
   );
 };
 
