@@ -68,6 +68,7 @@ const Header = () => {
               onClose={() => setSignInModalOpen(false)}
               direction="right"
               height="100vh"
+              rightSideCloseButtonPositon="left-0"
             >
               <Auth />
             </Modal>

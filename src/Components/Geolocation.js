@@ -38,7 +38,12 @@ const Geolocation = () => {
       )}
 
       {isModalOpen && (
-        <Modal onClose={closeModal} direction="left" height="100vh">
+        <Modal
+          onClose={closeModal}
+          direction="left"
+          height="100vh"
+          flexCenter="items-center"
+        >
           <SearchLocation closeModal={closeModal} setLocation={setLocation} />
         </Modal>
       )}
