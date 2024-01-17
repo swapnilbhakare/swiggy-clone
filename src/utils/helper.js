@@ -1,5 +1,5 @@
-export const filterData = (searchInput, restaurant) => {
-  return restaurant.filter((restaurant) =>
+export const searchData = (searchInput, restaurants) => {
+  return restaurants.filter((restaurant) =>
     restaurant?.info?.name?.toLowerCase()?.includes(searchInput.toLowerCase())
   );
 };

@@ -1,27 +1,52 @@
 import { FETCH_ALL_RESTAURANTS } from "../config";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import {
+  setAllRestaurants,
+  setFilteredRestaurants,
+  setCategory,
+  setLoading,
+  setError,
+} from "../Store/restaurantSlice";
+
+import { useDispatch } from "react-redux";
+
 const useRestaurants = () => {
-  const [allRestaurants, setAllRestaurants] = useState(null);
-  const [filterdRestaurants, setFilterdRestaurants] = useState(null);
-  const [category, setCategory] = useState(null);
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    getRestarants();
-  }, []);
+    const fetchData = async () => {
+      const data = await getRestaurants();
+    };
 
-  async function getRestarants() {
-    const response = await fetch(FETCH_ALL_RESTAURANTS);
-    const json = await response.json();
+    fetchData();
+  }, [dispatch]);
 
-    setCategory(json?.data?.cards[0]?.card?.card?.imageGridCards?.info);
+  async function getRestaurants() {
+    try {
+      dispatch(setLoading(true));
 
-    setAllRestaurants(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
-    setFilterdRestaurants(
-      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    );
+      const response = await fetch(FETCH_ALL_RESTAURANTS);
+      const json = await response.json();
+
+      dispatch(
+        setCategory(json?.data?.cards[0]?.card?.card?.imageGridCards?.info)
+      );
+      const allRestaurants =
+        json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle
+          ?.restaurants || [];
+
+      dispatch(setAllRestaurants(allRestaurants));
+      dispatch(setFilteredRestaurants(allRestaurants));
+
+      return allRestaurants;
+    } catch (error) {
+      dispatch(setError("Error fetching restaurants"));
+    } finally {
+      dispatch(setLoading(false));
+    }
+
+    return [];
   }
-
-  return [category, allRestaurants, filterdRestaurants, setFilterdRestaurants];
 };
+
 export default useRestaurants;

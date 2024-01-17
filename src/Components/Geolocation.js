@@ -1,7 +1,7 @@
 import React from "react";
 import { RiArrowDownSLine } from "react-icons/ri";
-import { LocationShimmer } from "./Shimmer";
-import Modal from "./Modal/Modal";
+import { LocationShimmer } from "./UI/Shimmer.js";
+import Modal from "./UI/Modal.js";
 import SearchLocation from "./SearchLocaton";
 import useGeoLocation from "../utils/useGeoLocation.js";
 import { useModal } from "../utils/ModalContext.js";

@@ -1,21 +1,45 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IoMdStar, IoIosBicycle } from "react-icons/io";
+import { BiSolidPieChartAlt } from "react-icons/bi";
+import { HiOutlineCurrencyRupee } from "react-icons/hi2";
 
+import { Shimmer } from "./UI/Shimmer";
+
+import { addItem } from "../Store/cartSlice.js";
+import {
+  selectRestaurant,
+  selectRestaurantMenu,
+  selectLoading,
+} from "../Store/restaurantSlice.js";
 import { IMG_CDN_URL } from "../config";
-import { Shimmer } from "./Shimmer";
-import useRestaurant from "../utils/useRestaurant";
-import { addItem } from "../Store/cartSlice";
+import MenuItem from "./MenuItem";
+import useRestaurant from "../utils/useRestaurant.js";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const [restaurant, restaurantMenu] = useRestaurant(resId);
+  const { getRestaurantInfo } = useRestaurant(resId);
   const dispatch = useDispatch();
+  const loading = useSelector(selectLoading);
+
+  const [isVegOnly, setIsVegOnly] = useState(false);
+  const restaurant = useSelector(selectRestaurant);
+  const restaurantMenu = useSelector(selectRestaurantMenu);
+  const handleVegToggle = () => {
+    setIsVegOnly(!isVegOnly);
+  };
+
   const addFoodItem = (item) => {
     dispatch(addItem(item));
   };
-  console.log(restaurantMenu);
+
+  useEffect(() => {
+    if (!loading) {
+      getRestaurantInfo();
+    }
+  }, [dispatch, resId, loading]);
+
   if (!restaurant) {
     return <Shimmer />;
   }
@@ -48,25 +72,60 @@ const RestaurantMenu = () => {
             </p>
           </div>
         </div>
-        <h3>{restaurant?.city}</h3>
-        <h3>{restaurant?.costForTwoMessage}</h3>
-
-        {/* <img src={`${IMG_CDN_URL}${restaurant?.cloudinaryImageId}`} /> */}
+        <div className="">
+          <p className="flex items-center mt-4 font-bold text-gray-700">
+            <span className="flex">
+              <BiSolidPieChartAlt className="mr-2 text-xl" />{" "}
+              {restaurant?.sla.deliveryTime} MINS
+            </span>
+            <span className="flex">
+              <HiOutlineCurrencyRupee className="text-xl mx-2" />
+              {restaurant?.costForTwoMessage}
+            </span>
+          </p>
+          <div>
+            <div className="flex items-center my-5">
+              <span className="mr-2 font-semibold text-gray-700">Veg only</span>
+              <button
+                className={`relative inline-flex items-center   h-4 rounded-sm w-8 focus:outline-none transition-colors ease-in-out duration-200 ${
+                  isVegOnly ? "bg-green-600" : "bg-gray-300"
+                }`}
+                data-testid="toggle-switch"
+                role="switch"
+                aria-checked={isVegOnly}
+                aria-label="Veg Only"
+                onClick={handleVegToggle}
+              >
+                <span
+                  className={`${
+                    isVegOnly ? "translate-x-4" : "translate-x-0"
+                  }  flex items-center justify-center w-3.5 h-3.5 transition-transform transform bg-white rounded-sm`}
+                >
+                  <span
+                    className={
+                      isVegOnly
+                        ? "inline-block w-2 h-2 transition-transform transform bg-green-600 rounded-full"
+                        : "inline-block w-2 h-2 transition-transform transform rounded-full"
+                    }
+                  ></span>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
       <div>
         <ul>
           {restaurantMenu &&
             Array.isArray(restaurantMenu) &&
             restaurantMenu.map((item) => (
-              <li key={item?.card?.info?.id}>
-                {item?.card?.info?.name}
-                <button
-                  className="p-1 m-5 bg-green-300"
-                  onClick={() => addFoodItem(item?.card?.info)}
-                >
-                  Add
-                </button>
-              </li>
+              <MenuItem
+                key={item?.card?.info?.id}
+                item={item}
+                IMG_CDN_URL={IMG_CDN_URL}
+                isVegOnly={isVegOnly}
+                addFoodItem={addFoodItem}
+              />
             ))}
         </ul>
       </div>

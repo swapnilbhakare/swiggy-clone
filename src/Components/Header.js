@@ -9,7 +9,7 @@ import { BsBox2 } from "react-icons/bs";
 import { LOGO } from "../config";
 import Geolocation from "./Geolocation";
 import { useSelector } from "react-redux";
-import Modal from "./Modal/Modal";
+import Modal from "./UI/Modal";
 import Auth from "./Auth";
 
 const Title = () => (

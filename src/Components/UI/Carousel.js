@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
-import { IMG_CDN_URL } from "../config";
+import { IMG_CDN_URL } from "../../config";
 
 const Carousel = ({ category }) => {
   const itemsPerClick = 3.5; // Number of items to show per click

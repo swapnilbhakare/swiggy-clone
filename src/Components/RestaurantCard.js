@@ -2,7 +2,7 @@ import React from "react";
 import { IMG_CDN_URL } from "../config";
 import { MdStars } from "react-icons/md";
 import { BsDot } from "react-icons/bs";
-import { Shimmer } from "./Shimmer";
+import { Shimmer } from "./UI/Shimmer";
 const RestaurantCard = ({ restaurant }) => {
   const cuisinesText = restaurant.cuisines.join(", ");
   if (!restaurant) {
