@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { IoMdStar, IoIosBicycle } from "react-icons/io";
 import { BiSolidPieChartAlt } from "react-icons/bi";
 import { HiOutlineCurrencyRupee } from "react-icons/hi2";
+import CartModal from "./CartModal.js";
 
 import { Shimmer } from "./UI/Shimmer";
-
 import { addItem } from "../Store/cartSlice.js";
 import {
   selectRestaurant,
@@ -29,6 +29,8 @@ const RestaurantMenu = () => {
   const handleVegToggle = () => {
     setIsVegOnly(!isVegOnly);
   };
+
+  const cartItems = useSelector((store) => store.cart.items);
 
   const addFoodItem = (item) => {
     dispatch(addItem(item));
@@ -129,6 +131,7 @@ const RestaurantMenu = () => {
             ))}
         </ul>
       </div>
+      {cartItems.length > 0 && <CartModal />}
     </div>
   );
 };

@@ -24,7 +24,7 @@ const Title = () => (
 const Header = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const isOnline = useOnline();
-  const cartItems = useSelector((store) => store.cart.items);
+  const cartCount = useSelector((store) => store.cart.count);
   const [isSignInModalOpen, setSignInModalOpen] = useState(false);
 
   return (
@@ -77,7 +77,7 @@ const Header = () => {
           <li className="relative flex items-center font-normal text-base text-gray-600 hover:text-orange-500 transition duration-300 ease-in-out">
             <BsBox2 className="mr-2"></BsBox2>
             <span className="absolute top-0 text-orange-500 left-4 h-2 w-2 flex items-center justify-center rounded-full">
-              {cartItems.length}
+              {cartCount > 0 ? cartCount : null}
             </span>
             <Link to="/cart">Cart</Link>
           </li>
