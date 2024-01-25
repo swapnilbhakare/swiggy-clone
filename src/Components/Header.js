@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import useOnline from "../utils/useOnline";
 import { IoSearch } from "react-icons/io5";
 import { BiSolidOffer } from "react-icons/bi";
@@ -11,6 +11,7 @@ import Geolocation from "./Geolocation";
 import { useSelector } from "react-redux";
 import Modal from "./UI/Modal";
 import Auth from "./Auth";
+import logo from "../assets/img/logo.png";
 
 const Title = () => (
   <Link
@@ -26,18 +27,23 @@ const Header = () => {
   const isOnline = useOnline();
   const cartCount = useSelector((store) => store.cart.count);
   const [isSignInModalOpen, setSignInModalOpen] = useState(false);
+  const location = useLocation();
 
   return (
     <div className="h-20 flex px-5 justify-around items-center bg-white fixed w-full top-0 z-10 shadow-lg md:shadow-lg lg:shadow-lg">
       <div className="flex items-center justify-between ml-6">
         <Title />
-
-        <Geolocation />
+        {location.pathname === "/cart" ? (
+          <div className="flex items-center justify-center ml-4 transition duration-300 cursor-pointer group">
+            <h2 className="font-semibold">SECURE CHECKOUT</h2>
+          </div>
+        ) : (
+          <Geolocation />
+        )}
       </div>
       <div>
         <ul className="flex space-x-4">
           <li className="flex items-center pr-7 font-normal text-lg text-gray-600 hover:text-orange-500 transition duration-300 ease-in-out">
-            {" "}
             <button className=" flex items-center">
               <IoSearch className="mr-2" />
               <span>Search</span>

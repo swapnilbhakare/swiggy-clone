@@ -10,7 +10,7 @@ const Carousel = ({ category }) => {
 
   const next = () => {
     setCurrentIndex((prevIndex) => {
-      const newIndex = (prevIndex + itemsPerClick) % category.length;
+      const newIndex = (prevIndex + itemsPerClick) % category?.length;
       setNextClicked(true);
       return newIndex;
     });
@@ -19,7 +19,7 @@ const Carousel = ({ category }) => {
   const prev = () => {
     setCurrentIndex((prevIndex) => {
       const newIndex =
-        (prevIndex - itemsPerClick + category.length) % category.length;
+        (prevIndex - itemsPerClick + category?.length) % category.length;
       setNextClicked(false);
       return newIndex;
     });
@@ -43,15 +43,15 @@ const Carousel = ({ category }) => {
           </button>
           <button
             className={`bg-white-smoke rounded-full p-2 ${
-              currentIndex + itemsPerClick >= category.length ||
-              currentIndex + minItemsToShow >= category.length
+              currentIndex + itemsPerClick >= category?.length ||
+              currentIndex + minItemsToShow >= category?.length
                 ? "pointer-events-none opacity-50"
                 : ""
             }`}
             onClick={next}
             disabled={
-              currentIndex + itemsPerClick >= category.length ||
-              currentIndex + minItemsToShow >= category.length
+              currentIndex + itemsPerClick >= category?.length ||
+              currentIndex + minItemsToShow >= category?.length
             }
           >
             <GrFormNextLink />
@@ -61,14 +61,14 @@ const Carousel = ({ category }) => {
       <div
         className="flex transition-transform duration-500 ease-in-out overflow-x-auto"
         style={{
-          width: `${category.length * itemWidth}px`,
+          width: `${category?.length * itemWidth}px`,
           transform: `translateX(-${currentIndex * itemWidth}px)`,
         }}
       >
-        {category.map((item, index) => (
+        {category?.map((item, index) => (
           <img
             key={index}
-            src={IMG_CDN_URL + item.imageId}
+            src={IMG_CDN_URL + item?.imageId}
             alt={`Carousel Item ${index + 1}`}
             className="my-carousel-item w-full mr-10 overflow-auto rounded-full"
           />

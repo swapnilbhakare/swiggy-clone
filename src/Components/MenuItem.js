@@ -1,22 +1,28 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { addItem, removeItem } from "../Store/cartSlice.js";
+import { selectRestaurant } from "../Store/restaurantSlice";
 const MenuItem = ({ item, IMG_CDN_URL, isVegOnly, addFoodItem }) => {
   const dispatch = useDispatch();
-
+  const restaurant = useSelector(selectRestaurant);
   const cartItems = useSelector((store) => store.cart.items);
 
   const currentCartItem = cartItems.find(
-    (cartItem) => cartItem.id === item?.card?.info?.id
+    (cartItem) => cartItem.item.id === (item?.card?.info?.id ?? undefined)
   );
 
   const handleAddClick = () => {
-    dispatch(addItem(item?.card?.info));
+    dispatch(
+      addItem({ item: item?.card?.info, restaurantDetails: restaurant })
+    );
   };
 
   const handleRemoveClick = () => {
-    dispatch(removeItem(item?.card?.info));
+    dispatch(
+      removeItem({ item: item?.card?.info, restaurantDetails: restaurant })
+    );
   };
+
   const isVeg = item?.card?.info?.isVeg === 1;
 
   if (isVegOnly && !isVeg) {

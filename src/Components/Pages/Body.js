@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RestaurantCard from "../RestaurantCard";
-import { Shimmer } from "../UI/Shimmer";
+import { Shimmer, CarouselShimmer } from "../UI/Shimmer";
 import { Link } from "react-router-dom";
 import { searchData } from "../../utils/helper.js";
 import useRestaurants from "../../utils/useRestaurants";
@@ -42,9 +42,9 @@ const Body = () => {
     dispatch(setFilteredRestaurants(filteredData));
   };
 
-  if (loading) return <Shimmer />;
+  // if (loading) return <Shimmer />;
   if (error) return <div>Error {error}</div>;
-  if (!allRestaurants) return <Shimmer />;
+  // if (!allRestaurants) return <Shimmer />;
 
   return (
     <div className="max-w-6xl mx-auto mt-28">
@@ -63,21 +63,28 @@ const Body = () => {
           <FaSearch />
         </button>
       </div>
-      <Carousel category={category} />
-      {filteredRestaurants?.length === 0 ? (
+      {loading ? <CarouselShimmer /> : <Carousel category={category} />}
+
+      {!allRestaurants ? (
         <Shimmer />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-20">
-          {filteredRestaurants.map((restaurant) => (
-            <Link
-              to={"/restaurant/" + restaurant.info.id}
-              key={restaurant.info.id}
-              className="m-2"
-            >
-              <RestaurantCard restaurant={restaurant.info} />
-            </Link>
-          ))}
-        </div>
+        <>
+          {filteredRestaurants?.length === 0 ? (
+            <Shimmer />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-20">
+              {filteredRestaurants.map((restaurant) => (
+                <Link
+                  to={"/restaurant/" + restaurant.info.id}
+                  key={restaurant.info.id}
+                  className="m-2"
+                >
+                  <RestaurantCard restaurant={restaurant.info} />
+                </Link>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IMG_CDN_URL } from "../config.js";
 import { Link } from "react-router-dom";
+
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [isReferralCode, setIsReferralCode] = useState(false);

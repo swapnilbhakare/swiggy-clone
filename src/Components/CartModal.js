@@ -4,19 +4,15 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RiShoppingBag3Line } from "react-icons/ri";
 import { Link } from "react-router-dom";
+import {
+  calculateTotalPrice,
+  calculateTotalQuantity,
+} from "../utils/helper.js";
 
 const CartModal = () => {
-  const dispatch = useDispatch();
   const cartItems = useSelector((store) => store.cart.items);
-  const totalQuantity = cartItems.reduce(
-    (total, item) => total + item.count,
-    0
-  );
-
-  const totalPrice = cartItems.reduce((total, item) => {
-    const price = item.price || item.defaultPrice || 0;
-    return total + item.count * price;
-  }, 0);
+  const totalPrice = calculateTotalPrice();
+  const totalQuantity = calculateTotalQuantity();
 
   return (
     <div className="max-w-3xl mx-auto font-bold text-white fixed bottom-1 left-0 right-0 px-3 py-4 bg-[#60b246] border-t border-green-500 z-10">
