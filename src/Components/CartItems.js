@@ -31,7 +31,7 @@ const CartItems = () => {
     <>
       <CartLayout className="w-[370px] p-4">
         <div>
-          <div className="flex items-center z-20">
+          <div className="flex items-center z-20 shadow-sm">
             <img
               src={`${IMG_CDN_URL}/${restaurantDetails?.cloudinaryImageId}`}
               className="size-12"
@@ -139,7 +139,7 @@ const CartItems = () => {
               </div>
             </div>
           </div>
-          <div className="flex mt-2 px-3 font-semibold items-center justify-between py-2 uppercase z-20">
+          <div className="flex shadow-sm mt-2 px-3 font-semibold items-center justify-between py-2 uppercase z-20">
             <span>To Pay</span>
             <span>₹{totalAmount / 100}</span>
           </div>
