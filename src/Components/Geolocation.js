@@ -4,16 +4,15 @@ import { LocationShimmer } from "./UI/Shimmer.js";
 import Modal from "./UI/Modal.js";
 import SearchLocation from "./SearchLocaton";
 import useGeoLocation from "../utils/useGeoLocation.js";
-import { useModal } from "../utils/ModalContext.js";
+import { useGeolocationModal } from "../utils/ModalContext.js";
 
 const Geolocation = () => {
-  const { isModalOpen, openModal, closeModal, modalContent } = useModal();
+  const { isModalOpen, openModal, closeModal } = useGeolocationModal();
+
   const { truncatedArea, error, location, setLocation } = useGeoLocation();
 
   const handleLocationClick = () => {
-    openModal(
-      <SearchLocation closeModal={closeModal} setLocation={setLocation} />
-    );
+    openModal(<SearchLocation setLocation={setLocation} />);
   };
 
   return (
@@ -39,12 +38,12 @@ const Geolocation = () => {
 
       {isModalOpen && (
         <Modal
-          onClose={closeModal}
           direction="left"
           height="100vh"
+          onClose={closeModal}
           flexCenter="items-center"
         >
-          <SearchLocation closeModal={closeModal} setLocation={setLocation} />
+          <SearchLocation setLocation={setLocation} />
         </Modal>
       )}
     </div>

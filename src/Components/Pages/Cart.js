@@ -4,8 +4,10 @@ import { IMG_CDN_URL } from "../../config";
 import CartItems from "../CartItems.js";
 import { Link } from "react-router-dom";
 import emptyCart from "../../assets/img/empty-cart.png";
+import { useState } from "react";
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
+  const [login, setIsLogin] = useState();
 
   const isCartEmpty = cartItems.length === 0;
 

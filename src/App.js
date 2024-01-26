@@ -11,19 +11,24 @@ import { Provider } from "react-redux";
 import store from "./Store/store";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 import React, { lazy, Suspense } from "react";
-import { ModalProvider } from "./utils/ModalContext";
+import {
+  AuthModalProvider,
+  GeolocationModalProvider,
+} from "./utils/ModalContext";
 const About = lazy(() => import("./Components/Pages/About"));
 const App = () => {
   return (
-    <ModalProvider>
-      <Provider store={store}>
-        <div className="bg-white min-h-screen">
-          <Header />
-          <Outlet />
-          <Footer />
-        </div>
-      </Provider>
-    </ModalProvider>
+    <AuthModalProvider>
+      <GeolocationModalProvider>
+        <Provider store={store}>
+          <div className="bg-white min-h-screen">
+            <Header />
+            <Outlet />
+            <Footer />
+          </div>
+        </Provider>
+      </GeolocationModalProvider>
+    </AuthModalProvider>
   );
 };
 

@@ -10,14 +10,15 @@ const CartItems = () => {
 
   const totalPrice = calculateTotalPrice();
   const items = cartItems.map((item) => item);
-  console.log(items);
+
   const restaurantDetails =
     cartItems.length > 0 ? cartItems[0].restaurantDetails : null;
+
+  const deliveryFee = restaurantDetails?.feeDetails?.totalFee || 0;
   const platformFee = 5;
   const gst = Math.round((0.08 / 100) * totalPrice);
 
-  const deliveryFee = restaurantDetails?.feeDetails?.totalFee / 100;
-  const totalAmount = Math.round(totalPrice + deliveryFee + platformFee + gst);
+  const totalAmount = totalPrice + deliveryFee + platformFee + gst;
 
   const handleAddClick = (item) => {
     dispatch(addItem({ item, restaurantDetails: restaurantDetails }));
@@ -116,7 +117,7 @@ const CartItems = () => {
                     Delivery Fee |{" "}
                     {restaurantDetails?.sla?.lastMileTravelString}
                   </span>
-                  <span>₹ {deliveryFee}</span>
+                  <span>₹ {deliveryFee / 100}</span>
                 </div>
               </div>
               <div className="border-b-2 border-black">

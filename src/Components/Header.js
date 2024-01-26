@@ -11,8 +11,7 @@ import Geolocation from "./Geolocation";
 import { useSelector } from "react-redux";
 import Modal from "./UI/Modal";
 import Auth from "./Auth";
-import logo from "../assets/img/logo.png";
-
+import { useAuthModal } from "../utils/ModalContext";
 const Title = () => (
   <Link
     to="/"
@@ -23,11 +22,13 @@ const Title = () => (
 );
 
 const Header = () => {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const isOnline = useOnline();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const user = useSelector((state) => state.auth.user);
+  const { isModalOpen, openModal, closeModal, modalContent } = useAuthModal();
   const cartCount = useSelector((store) => store.cart.count);
-  const [isSignInModalOpen, setSignInModalOpen] = useState(false);
+
   const location = useLocation();
+  console.log(user);
 
   return (
     <div className="h-20 flex px-5 justify-around items-center bg-white fixed w-full top-0 z-10 shadow-lg md:shadow-lg lg:shadow-lg">
@@ -66,12 +67,18 @@ const Header = () => {
           </li>
 
           <li className="flex items-center pr-7 font-normal text-base text-gray-600 hover:text-orange-500 transition duration-300 ease-in-out">
-            <FaRegUser className="mr-1" />
-            <button onClick={() => setSignInModalOpen(true)}>Sign In</button>
+            <>
+              <FaRegUser className="mr-1" />
+              {isAuthenticated ? (
+                user.name
+              ) : (
+                <button onClick={() => openModal(<Auth />)}>Sign In</button>
+              )}
+            </>
           </li>
-          {isSignInModalOpen && (
+          {isModalOpen && (
             <Modal
-              onClose={() => setSignInModalOpen(false)}
+              onClose={() => closeModal()}
               direction="right"
               height="100vh"
               rightSideCloseButtonPositon="left-0"
