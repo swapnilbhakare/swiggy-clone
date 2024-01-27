@@ -12,10 +12,10 @@ const useRestaurant = (resId) => {
       const json = await data.json();
 
       dispatch(setRestaurant(json?.data?.cards[0]?.card?.card?.info));
+
       dispatch(
         setRestaurantMenu(
-          json?.data?.cards[2]?.groupedCard?.cardGroupMap.REGULAR?.cards[4]
-            ?.card?.card?.itemCards
+          json?.data?.cards[2]?.groupedCard?.cardGroupMap.REGULAR?.cards
         )
       );
     } catch (error) {

@@ -5,7 +5,7 @@ import { IoMdStar, IoIosBicycle } from "react-icons/io";
 import { BiSolidPieChartAlt } from "react-icons/bi";
 import { HiOutlineCurrencyRupee } from "react-icons/hi2";
 import CartModal from "./CartModal.js";
-
+import RestaurantItemAccordion from "./UI/RestaurantItemAccordion.js";
 import { RestaurantMenuShimmer } from "./UI/Shimmer";
 import { addItem } from "../Store/cartSlice.js";
 import {
@@ -26,6 +26,7 @@ const RestaurantMenu = () => {
   const [isVegOnly, setIsVegOnly] = useState(false);
   const restaurant = useSelector(selectRestaurant);
   const restaurantMenu = useSelector(selectRestaurantMenu);
+
   const handleVegToggle = () => {
     setIsVegOnly(!isVegOnly);
   };
@@ -128,19 +129,144 @@ const RestaurantMenu = () => {
             </div>
           </div>
           <div>
-            <ul>
-              {restaurantMenu &&
-                Array.isArray(restaurantMenu) &&
-                restaurantMenu.map((item) => (
-                  <MenuItem
-                    key={item?.card?.info?.id}
-                    item={item}
-                    IMG_CDN_URL={IMG_CDN_URL}
-                    isVegOnly={isVegOnly}
-                    addFoodItem={addFoodItem}
-                  />
-                ))}
-            </ul>
+            <RestaurantItemAccordion
+              title={restaurantMenu[2]?.card?.card?.title}
+            >
+              <ul>
+                {restaurantMenu[2]?.card?.card?.itemCards &&
+                  Array.isArray(restaurantMenu[2]?.card?.card?.itemCards) &&
+                  restaurantMenu[2]?.card?.card?.itemCards.map((item) => (
+                    <MenuItem
+                      key={item?.card?.info?.id}
+                      item={item}
+                      IMG_CDN_URL={IMG_CDN_URL}
+                      isVegOnly={isVegOnly}
+                      addFoodItem={addFoodItem}
+                    />
+                  ))}
+              </ul>
+            </RestaurantItemAccordion>
+
+            <RestaurantItemAccordion
+              title={restaurantMenu[4]?.card?.card?.title}
+            >
+              <ul>
+                {restaurantMenu[4]?.card?.card?.itemCards &&
+                  Array.isArray(restaurantMenu[4]?.card?.card?.itemCards) &&
+                  restaurantMenu[4]?.card?.card?.itemCards.map((item) => (
+                    <MenuItem
+                      key={item?.card?.info?.id}
+                      item={item}
+                      IMG_CDN_URL={IMG_CDN_URL}
+                      isVegOnly={isVegOnly}
+                      addFoodItem={addFoodItem}
+                    />
+                  ))}
+              </ul>
+            </RestaurantItemAccordion>
+            <RestaurantItemAccordion
+              title={restaurantMenu[5]?.card?.card?.title}
+            >
+              <ul>
+                {restaurantMenu[5]?.card?.card?.itemCards &&
+                  Array.isArray(restaurantMenu[5]?.card?.card?.itemCards) &&
+                  restaurantMenu[5]?.card?.card?.itemCards.map((item) => (
+                    <MenuItem
+                      key={item?.card?.info?.id}
+                      item={item}
+                      IMG_CDN_URL={IMG_CDN_URL}
+                      isVegOnly={isVegOnly}
+                      addFoodItem={addFoodItem}
+                    />
+                  ))}
+              </ul>
+            </RestaurantItemAccordion>
+            <RestaurantItemAccordion
+              title={restaurantMenu[6]?.card?.card?.title}
+            >
+              <ul>
+                {restaurantMenu[6]?.card?.card?.itemCards &&
+                  Array.isArray(restaurantMenu[6]?.card?.card?.itemCards) &&
+                  restaurantMenu[6]?.card?.card?.itemCards.map((item) => (
+                    <MenuItem
+                      key={item?.card?.info?.id}
+                      item={item}
+                      IMG_CDN_URL={IMG_CDN_URL}
+                      isVegOnly={isVegOnly}
+                      addFoodItem={addFoodItem}
+                    />
+                  ))}
+              </ul>
+            </RestaurantItemAccordion>
+            <RestaurantItemAccordion
+              title={restaurantMenu[7]?.card?.card?.title}
+            >
+              <ul>
+                {restaurantMenu[7]?.card?.card?.itemCards &&
+                  Array.isArray(restaurantMenu[7]?.card?.card?.itemCards) &&
+                  restaurantMenu[7]?.card?.card?.itemCards.map((item) => (
+                    <MenuItem
+                      key={item?.card?.info?.id}
+                      item={item}
+                      IMG_CDN_URL={IMG_CDN_URL}
+                      isVegOnly={isVegOnly}
+                      addFoodItem={addFoodItem}
+                    />
+                  ))}
+              </ul>
+            </RestaurantItemAccordion>
+            <RestaurantItemAccordion
+              title={restaurantMenu[8]?.card?.card?.title}
+            >
+              <ul>
+                {restaurantMenu[8]?.card?.card?.itemCards &&
+                  Array.isArray(restaurantMenu[8]?.card?.card?.itemCards) &&
+                  restaurantMenu[8]?.card?.card?.itemCards.map((item) => (
+                    <MenuItem
+                      key={item?.card?.info?.id}
+                      item={item}
+                      IMG_CDN_URL={IMG_CDN_URL}
+                      isVegOnly={isVegOnly}
+                      addFoodItem={addFoodItem}
+                    />
+                  ))}
+              </ul>
+            </RestaurantItemAccordion>
+
+            <RestaurantItemAccordion
+              title={restaurantMenu[9]?.card?.card?.title}
+            >
+              <ul>
+                {restaurantMenu[9]?.card?.card?.itemCards &&
+                  Array.isArray(restaurantMenu[9]?.card?.card?.itemCards) &&
+                  restaurantMenu[9]?.card?.card?.itemCards.map((item) => (
+                    <MenuItem
+                      key={item?.card?.info?.id}
+                      item={item}
+                      IMG_CDN_URL={IMG_CDN_URL}
+                      isVegOnly={isVegOnly}
+                      addFoodItem={addFoodItem}
+                    />
+                  ))}
+              </ul>
+            </RestaurantItemAccordion>
+            <RestaurantItemAccordion
+              title={restaurantMenu[10]?.card?.card?.title}
+            >
+              <ul>
+                {restaurantMenu[10]?.card?.card?.itemCards &&
+                  Array.isArray(restaurantMenu[10]?.card?.card?.itemCards) &&
+                  restaurantMenu[10]?.card?.card?.itemCards.map((item) => (
+                    <MenuItem
+                      key={item?.card?.info?.id}
+                      item={item}
+                      IMG_CDN_URL={IMG_CDN_URL}
+                      isVegOnly={isVegOnly}
+                      addFoodItem={addFoodItem}
+                    />
+                  ))}
+              </ul>
+            </RestaurantItemAccordion>
           </div>
           {cartItems.length > 0 && <CartModal />}
         </div>

@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { searchData } from "../utils/helper";
 
 const restaurantSlice = createSlice({
   name: "restaurants",
@@ -39,6 +38,9 @@ const restaurantSlice = createSlice({
     setRestaurantMenu: (state, action) => {
       state.restaurantMenu = action.payload;
     },
+    setRecommended: (state, action) => {
+      state.recommended = action.payload;
+    },
   },
 });
 
@@ -60,5 +62,4 @@ export const selectLoading = (state) => state.restaurants.loading;
 export const selectError = (state) => state.restaurants.error;
 export const selectRestaurant = (state) => state.restaurants.restaurant;
 export const selectRestaurantMenu = (state) => state.restaurants.restaurantMenu;
-
 export default restaurantSlice.reducer;
