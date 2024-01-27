@@ -34,6 +34,13 @@ const useAuth = () => {
   };
 
   const handleLogin = () => {
+    const signedUpUser = JSON.parse(localStorage.getItem("user"));
+
+    if (!signedUpUser) {
+      console.log("User not signed up");
+      return;
+    }
+
     if (loginStep === 1) {
       const isValidPhone = validatePhone(phone);
 
@@ -52,7 +59,7 @@ const useAuth = () => {
       }
 
       if (enteredOTP === generatedOTP) {
-        dispatch(login(user));
+        dispatch(login(signedUpUser));
         closeModal();
         console.log("Login action dispatched");
 

@@ -11,13 +11,15 @@ import Geolocation from "./Geolocation";
 import { useSelector } from "react-redux";
 import Modal from "./UI/Modal";
 import Auth from "./Auth";
+import logo from "../assets/img/logo.png";
 import { useAuthModal } from "../utils/ModalContext";
 const Title = () => (
   <Link
     to="/"
     className="transition-transform duration-300 ease-in-out transform hover:scale-105 font-sans"
   >
-    {LOGO}
+    {/* {LOGO} */}
+    <img src={logo} className="h-24 w-28 object-contain" alt="logo" />
   </Link>
 );
 
@@ -31,7 +33,7 @@ const Header = () => {
   console.log(user);
 
   return (
-    <div className="h-20 flex px-5 justify-around items-center bg-white fixed w-full top-0 z-10 shadow-lg md:shadow-lg lg:shadow-lg">
+    <header className="h-20 flex px-5 justify-around items-center bg-white fixed w-full top-0 z-10 shadow-lg md:shadow-lg lg:shadow-lg">
       <div className="flex items-center justify-between ml-6">
         <Title />
         {location.pathname === "/cart" ? (
@@ -42,28 +44,32 @@ const Header = () => {
           <Geolocation />
         )}
       </div>
-      <div>
+      <nav>
         <ul className="flex space-x-4">
-          <li className="flex items-center pr-7 font-normal text-lg text-gray-600 hover:text-orange-500 transition duration-300 ease-in-out">
-            <button className=" flex items-center">
-              <IoSearch className="mr-2" />
-              <span>Search</span>
-            </button>
-          </li>
+          {location.pathname !== "/cart" && (
+            <>
+              <li className="flex items-center pr-7 font-normal text-lg text-gray-600 hover:text-orange-500 transition duration-300 ease-in-out">
+                <button className=" flex items-center">
+                  <IoSearch className="mr-2" />
+                  <span>Search</span>
+                </button>
+              </li>
 
-          <li className="flex items-center pr-7 font-normal text-base text-gray-600 hover:text-orange-500 transition duration-300 ease-in-out">
-            <BiSolidOffer className="mr-2" />
-            <Link to="/offer" className="relative">
-              <span>Offers</span>
-              <span className="absolute uppercase top-0 right-0 mt-[-3px] text-orange-500 text-xs transform translate-x-full">
-                New
-              </span>
-            </Link>
-          </li>
+              <li className="flex items-center pr-7 font-normal text-base text-gray-600 hover:text-orange-500 transition duration-300 ease-in-out">
+                <BiSolidOffer className="mr-2" />
+                <Link to="/offer" className="relative">
+                  <span>Offers</span>
+                  <span className="absolute uppercase top-0 right-0 mt-[-3px] text-orange-500 text-xs transform translate-x-full">
+                    New
+                  </span>
+                </Link>
+              </li>
+            </>
+          )}
 
           <li className="flex items-center pr-7 font-normal text-base text-gray-600 hover:text-orange-500 transition duration-300 ease-in-out">
             <IoHelpBuoyOutline className="mr-2 flex items-center" />
-            <Link to="/offer">Help</Link>
+            <Link to="/help">Help</Link>
           </li>
 
           <li className="flex items-center pr-7 font-normal text-base text-gray-600 hover:text-orange-500 transition duration-300 ease-in-out">
@@ -95,8 +101,8 @@ const Header = () => {
             <Link to="/cart">Cart</Link>
           </li>
         </ul>
-      </div>
-    </div>
+      </nav>
+    </header>
   );
 };
 

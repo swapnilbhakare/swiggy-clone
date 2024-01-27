@@ -5,14 +5,24 @@ import Modal from "./UI/Modal.js";
 import SearchLocation from "./SearchLocaton";
 import useGeoLocation from "../utils/useGeoLocation.js";
 import { useGeolocationModal } from "../utils/ModalContext.js";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setLocation } from "../Store/locationSlice.js";
 const Geolocation = () => {
+  const dispatch = useDispatch();
+  const location = useSelector((state) => state.location.location);
+  const error = useSelector((state) => state.location.error);
+
   const { isModalOpen, openModal, closeModal } = useGeolocationModal();
 
-  const { truncatedArea, error, location, setLocation } = useGeoLocation();
+  const { truncatedArea } = useGeoLocation();
 
   const handleLocationClick = () => {
-    openModal(<SearchLocation setLocation={setLocation} />);
+    openModal(
+      <SearchLocation
+        setLocation={(location) => dispatch(setLocation(location))}
+        closeModal={closeModal}
+      />
+    );
   };
 
   return (
@@ -43,7 +53,10 @@ const Geolocation = () => {
           onClose={closeModal}
           flexCenter="items-center"
         >
-          <SearchLocation setLocation={setLocation} />
+          <SearchLocation
+            setLocation={(location) => dispatch(setLocation(location))}
+            closeModal={closeModal}
+          />
         </Modal>
       )}
     </div>

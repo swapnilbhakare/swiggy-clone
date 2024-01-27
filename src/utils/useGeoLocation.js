@@ -1,8 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { GEO_LOCATION_URL } from "../config.js";
+import { useSelector, useDispatch } from "react-redux";
+import { setLocation, setError } from "../Store/locationSlice.js";
 const useGeoLocation = () => {
-  const [location, setLocation] = useState(null);
-  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const location = useSelector((state) => state.location.location);
+  const error = useSelector((state) => state.location.error);
 
   useEffect(() => {
     fetchData();
@@ -27,18 +30,21 @@ const useGeoLocation = () => {
 
         const reverseData = await response.json();
 
-        setLocation({
-          city: reverseData.address?.city,
-          area: reverseData.address?.neighbourhood || reverseData.display_name,
-          latitude,
-          longitude,
-        });
+        dispatch(
+          setLocation({
+            city: reverseData.address?.city,
+            area:
+              reverseData.address?.neighbourhood || reverseData.display_name,
+            latitude,
+            longitude,
+          })
+        );
       } else {
         throw new Error("Geolocation is not supported by your browser");
       }
     } catch (error) {
       console.error("Error:", error.message);
-      setError("Failed to fetch location");
+      dispatch(setError("Failed to fetch location"));
     }
   };
 
@@ -75,12 +81,15 @@ const useGeoLocation = () => {
         }
         const reverseData = await response.json();
 
-        setLocation({
-          city: reverseData.address?.city,
-          area: reverseData.address?.neighbourhood || reverseData.display_name,
-          latitude,
-          longitude,
-        });
+        dispatch(
+          setLocation({
+            city: reverseData.address?.city,
+            area:
+              reverseData.address?.neighbourhood || reverseData.display_name,
+            latitude,
+            longitude,
+          })
+        );
 
         return {
           latitude,
@@ -93,17 +102,17 @@ const useGeoLocation = () => {
       }
     } catch (error) {
       console.error("Error:", error.message);
-      setError("Failed to fetch current location");
+      dispatch(setError("Failed to fetch current location"));
       return null;
     }
   };
 
-  const truncatedArea =
-    location && location.area.length > 32
-      ? location.area.slice(0, 28) + "..."
-      : location && location.area;
   return {
-    truncatedArea,
+    truncatedArea:
+      location && location.area.length > 32
+        ? location.area.slice(0, 28) + "..."
+        : location && location.area,
+
     error,
     location,
     onSearch,

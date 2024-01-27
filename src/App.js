@@ -1,21 +1,22 @@
-import React from "react";
-import Header from "./Components/Header";
-import Body from "./Components/Pages/Body";
-import Footer from "./Components/Footer";
-import Cart from "./Components/Pages/Cart";
-import Error from "./Components/UI/Error";
-import RestaurantMenu from "./Components/RestaurantMenu";
-import Profile from "./Components/Pages/Profile";
-
-import { Provider } from "react-redux";
-import store from "./Store/store";
-import { createBrowserRouter, Outlet } from "react-router-dom";
 import React, { lazy, Suspense } from "react";
+import { Provider } from "react-redux";
+import { createBrowserRouter, Outlet } from "react-router-dom";
 import {
   AuthModalProvider,
   GeolocationModalProvider,
 } from "./utils/ModalContext";
+import store from "./Store/store";
+import Header from "./Components/Header";
+import Body from "./Components/Pages/Body";
+import Footer from "./Components/Footer";
+import Error from "./Components/UI/Error";
+import RestaurantMenu from "./Components/RestaurantMenu";
+
 const About = lazy(() => import("./Components/Pages/About"));
+const Offer = lazy(() => import("./Components/Pages/Offer"));
+const Cart = lazy(() => import("./Components/Pages/Cart"));
+const Help = lazy(() => import("./Components/Pages/Help"));
+
 const App = () => {
   return (
     <AuthModalProvider>
@@ -32,39 +33,51 @@ const App = () => {
   );
 };
 
-export const appRouter = createBrowserRouter([
+const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <Body />,
-      },
-      {
-        path: "/about",
-        element: (
-          <Suspense fallback={<h1>Loading</h1>}>
-            <About />
-          </Suspense>
-        ),
-        children: [
-          {
-            path: "profile",
-            element: <Profile />,
-          },
-        ],
       },
 
       {
-        path: "/restaurant/:resId",
-        element: <RestaurantMenu />,
+        path: "restaurant/:resId",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <RestaurantMenu />
+          </Suspense>
+        ),
       },
       {
-        path: "/cart",
-        element: <Cart />,
+        path: "cart",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Cart />
+          </Suspense>
+        ),
+      },
+      {
+        path: "offer",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Offer />
+          </Suspense>
+        ),
+      },
+      {
+        path: "help",
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Help />
+          </Suspense>
+        ),
       },
     ],
   },
 ]);
+
+export { appRouter };

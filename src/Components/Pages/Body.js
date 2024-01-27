@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { searchData } from "../../utils/helper.js";
 import useRestaurants from "../../utils/useRestaurants";
 import { FaSearch } from "react-icons/fa";
-import useOnline from "../../utils/useOnline";
+import useOnline from "../../utils/useOnline.js";
+import Offline from "../UI/Offline.js";
 import Carousel from "../UI/Carousel";
 import { useDispatch, useSelector } from "react-redux";
-
+import Error from "../UI/Error.js";
 import {
   setFilteredRestaurants,
   selectAllRestaurants,
@@ -23,12 +24,12 @@ const Body = () => {
   const dispatch = useDispatch();
   const category = useSelector((state) => state.restaurants.category);
   const allRestaurants = useSelector(
-    (state) => state.restaurants.allRestaurants // Correct selector
+    (state) => state.restaurants.allRestaurants
   );
   const filteredRestaurants = useSelector(
     (state) => state.restaurants.filteredRestaurants
   );
-
+  const isOnline = useOnline();
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
@@ -42,16 +43,17 @@ const Body = () => {
     dispatch(setFilteredRestaurants(filteredData));
   };
 
-  // if (loading) return <Shimmer />;
-  if (error) return <div>Error {error}</div>;
-  // if (!allRestaurants) return <Shimmer />;
+  if (!isOnline) {
+    return <Offline />;
+  }
+  if (error) return <Error />;
 
   return (
     <div className="max-w-6xl mx-auto mt-28">
       <div className="p-5 m-2 flex justify-end">
         <input
           type="text"
-          className="w-56 outline-8"
+          className="w-56  border px-4 "
           placeholder="Search"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
