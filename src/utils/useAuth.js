@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { login, signup } from "../Store/authSlice";
 import { generateOTP } from "../utils/helper.js";
 import { useAuthModal } from "../utils/ModalContext.js";
@@ -8,7 +7,6 @@ import { useAuthModal } from "../utils/ModalContext.js";
 const useAuth = () => {
   const { closeModal } = useAuthModal();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
@@ -60,8 +58,6 @@ const useAuth = () => {
       if (enteredOTP === generatedOTP) {
         dispatch(login(signedUpUser));
         closeModal();
-
-        navigate("/");
       } else {
         console.log("Incorrect OTP");
       }
