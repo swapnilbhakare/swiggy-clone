@@ -30,7 +30,6 @@ const Header = () => {
   const cartCount = useSelector((store) => store.cart.count);
 
   const location = useLocation();
-  console.log(user);
 
   return (
     <header className="h-20 flex px-5 justify-around items-center bg-white fixed w-full top-0 z-10 shadow-lg md:shadow-lg lg:shadow-lg">

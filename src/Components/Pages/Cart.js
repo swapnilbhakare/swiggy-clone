@@ -17,7 +17,7 @@ const Cart = () => {
   const error = useSelector((state) => state.location.error);
   const [selectLocation, setSelectLocation] = useState(false);
   const isCartEmpty = cartItems.length === 0;
-  console.log(location);
+
   const handleLocationSelect = () => {
     setSelectLocation((prevState) => !prevState);
   };

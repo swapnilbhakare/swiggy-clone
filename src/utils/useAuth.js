@@ -37,7 +37,6 @@ const useAuth = () => {
     const signedUpUser = JSON.parse(localStorage.getItem("user"));
 
     if (!signedUpUser) {
-      console.log("User not signed up");
       return;
     }
 
@@ -61,7 +60,6 @@ const useAuth = () => {
       if (enteredOTP === generatedOTP) {
         dispatch(login(signedUpUser));
         closeModal();
-        console.log("Login action dispatched");
 
         navigate("/");
       } else {
@@ -95,8 +93,6 @@ const useAuth = () => {
       if (enteredOTP === generatedOTP) {
         dispatch(signup({ name, phone, email }));
         closeModal();
-
-        console.log("Signup action dispatched");
       } else {
         console.log("Incorrect OTP");
       }

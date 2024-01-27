@@ -6,7 +6,6 @@ import { useAuthModal, useGeolocationModal } from "../../utils/ModalContext";
 const Backdrop = ({ onClose, closeModal }) => (
   <div
     onClick={() => {
-      console.log("Backdrop clicked");
       onClose && onClose();
       closeModal && closeModal();
     }}

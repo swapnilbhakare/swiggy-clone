@@ -5,7 +5,7 @@ import { BsDot } from "react-icons/bs";
 import { Shimmer } from "./UI/Shimmer";
 const RestaurantCard = ({ restaurant }) => {
   const cuisinesText = restaurant.cuisines.join(", ");
-  console.log(restaurant);
+
   if (!restaurant) {
     return <Shimmer />;
   }
