@@ -18,9 +18,14 @@ const RestaurantCard = ({ restaurant }) => {
           alt={restaurant.name}
         />
         <span className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black to-transparent text-white p-2 font-bold">
-          {restaurant?.aggregatedDiscountInfoV3?.header +
-            " " +
-            restaurant?.aggregatedDiscountInfoV3?.subHeader}
+          {restaurant?.aggregatedDiscountInfoV3?.header &&
+          restaurant?.aggregatedDiscountInfoV3?.subHeader
+            ? restaurant?.aggregatedDiscountInfoV3?.header +
+              " " +
+              restaurant?.aggregatedDiscountInfoV3?.subHeader
+            : ""}
+
+          {}
         </span>
       </div>
       <div className="p-4">

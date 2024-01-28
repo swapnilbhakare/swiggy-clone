@@ -1,5 +1,5 @@
 export const FETCH_ALL_RESTAURANTS =
-  "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.5203896&lng=73.8567005&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
+  "https://www.swiggy.com/dapi/restaurants/list/v5?lat=18.520602554515886&lng=73.85842712284298&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING";
 
 export const IMG_CDN_URL =
   "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/";

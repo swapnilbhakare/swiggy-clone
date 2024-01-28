@@ -129,6 +129,50 @@ const RestaurantMenu = () => {
             </div>
           </div>
           <div>
+            {!restaurantMenu[0]?.card?.card?.itemCards ? (
+              ""
+            ) : (
+              <RestaurantItemAccordion
+                title={restaurantMenu[0]?.card?.card?.title}
+              >
+                <ul>
+                  {restaurantMenu[0]?.card?.card?.itemCards &&
+                    Array.isArray(restaurantMenu[0]?.card?.card?.itemCards) &&
+                    restaurantMenu[0]?.card?.card?.itemCards.map((item) => (
+                      <MenuItem
+                        key={item?.card?.info?.id}
+                        item={item}
+                        IMG_CDN_URL={IMG_CDN_URL}
+                        isVegOnly={isVegOnly}
+                        addFoodItem={addFoodItem}
+                      />
+                    ))}
+                </ul>
+              </RestaurantItemAccordion>
+            )}
+
+            {!restaurantMenu[1]?.card?.card?.itemCards ? (
+              ""
+            ) : (
+              <RestaurantItemAccordion
+                title={restaurantMenu[1]?.card?.card?.title}
+              >
+                <ul>
+                  {restaurantMenu[1]?.card?.card?.itemCards &&
+                    Array.isArray(restaurantMenu[1]?.card?.card?.itemCards) &&
+                    restaurantMenu[1]?.card?.card?.itemCards.map((item) => (
+                      <MenuItem
+                        key={item?.card?.info?.id}
+                        item={item}
+                        IMG_CDN_URL={IMG_CDN_URL}
+                        isVegOnly={isVegOnly}
+                        addFoodItem={addFoodItem}
+                      />
+                    ))}
+                </ul>
+              </RestaurantItemAccordion>
+            )}
+
             {!restaurantMenu[2]?.card?.card?.itemCards ? (
               ""
             ) : (
@@ -139,6 +183,28 @@ const RestaurantMenu = () => {
                   {restaurantMenu[2]?.card?.card?.itemCards &&
                     Array.isArray(restaurantMenu[2]?.card?.card?.itemCards) &&
                     restaurantMenu[2]?.card?.card?.itemCards.map((item) => (
+                      <MenuItem
+                        key={item?.card?.info?.id}
+                        item={item}
+                        IMG_CDN_URL={IMG_CDN_URL}
+                        isVegOnly={isVegOnly}
+                        addFoodItem={addFoodItem}
+                      />
+                    ))}
+                </ul>
+              </RestaurantItemAccordion>
+            )}
+
+            {!restaurantMenu[3]?.card?.card?.itemCards ? (
+              ""
+            ) : (
+              <RestaurantItemAccordion
+                title={restaurantMenu[3]?.card?.card?.title}
+              >
+                <ul>
+                  {restaurantMenu[3]?.card?.card?.itemCards &&
+                    Array.isArray(restaurantMenu[3]?.card?.card?.itemCards) &&
+                    restaurantMenu[3]?.card?.card?.itemCards.map((item) => (
                       <MenuItem
                         key={item?.card?.info?.id}
                         item={item}
@@ -337,6 +403,28 @@ const RestaurantMenu = () => {
                   {restaurantMenu[12]?.card?.card?.itemCards &&
                     Array.isArray(restaurantMenu[12]?.card?.card?.itemCards) &&
                     restaurantMenu[12]?.card?.card?.itemCards.map((item) => (
+                      <MenuItem
+                        key={item?.card?.info?.id}
+                        item={item}
+                        IMG_CDN_URL={IMG_CDN_URL}
+                        isVegOnly={isVegOnly}
+                        addFoodItem={addFoodItem}
+                      />
+                    ))}
+                </ul>
+              </RestaurantItemAccordion>
+            )}
+
+            {!restaurantMenu[13]?.card?.card?.itemCards ? (
+              ""
+            ) : (
+              <RestaurantItemAccordion
+                title={restaurantMenu[13]?.card?.card?.title}
+              >
+                <ul>
+                  {restaurantMenu[13]?.card?.card?.itemCards &&
+                    Array.isArray(restaurantMenu[13]?.card?.card?.itemCards) &&
+                    restaurantMenu[13]?.card?.card?.itemCards.map((item) => (
                       <MenuItem
                         key={item?.card?.info?.id}
                         item={item}
