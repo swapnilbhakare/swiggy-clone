@@ -11,20 +11,22 @@ import Body from "./Components/Pages/Body";
 import Footer from "./Components/Footer";
 import Error from "./Components/UI/Error";
 import RestaurantMenu from "./Components/RestaurantMenu";
-
-const About = lazy(() => import("./Components/Pages/About"));
+import Offline from "./Components/UI/Offline";
+import useOnline from "./utils/useOnline";
 const Offer = lazy(() => import("./Components/Pages/Offer"));
 const Cart = lazy(() => import("./Components/Pages/Cart"));
 const Help = lazy(() => import("./Components/Pages/Help"));
 
 const App = () => {
+  const isOnline = useOnline();
   return (
     <AuthModalProvider>
       <GeolocationModalProvider>
         <Provider store={store}>
           <div className="bg-white min-h-screen">
             <Header />
-            <Outlet />
+
+            {isOnline ? <Outlet /> : <Offline />}
             <Footer />
           </div>
         </Provider>

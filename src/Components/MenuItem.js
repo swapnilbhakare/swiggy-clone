@@ -53,11 +53,16 @@ const MenuItem = ({ item, IMG_CDN_URL, isVegOnly, addFoodItem }) => {
       </div>
 
       <div className="relative">
-        <img
-          src={`${IMG_CDN_URL}/${item?.card?.info?.imageId}`}
-          alt={item?.card?.info?.name}
-          className="w-[118px] h-[96px] object-cover rounded"
-        />
+        {item?.card?.info?.imageId ? (
+          <img
+            src={`${IMG_CDN_URL}/${item?.card?.info?.imageId}`}
+            alt={item?.card?.info?.name}
+            className="w-[118px] h-[96px] object-cover rounded"
+          />
+        ) : (
+          <div className="w-[118px] h-[96px] object-cover rounded"></div>
+        )}
+
         {currentCartItem ? (
           <div className="absolute flex text-base justify-between items-center bottom-0 left-1/2 bg-white transform -translate-x-1/2 px-2 py-1 shadow-md text-green-500 font-semibold uppercase border rounded-sm hover:shadow-lg transition-all duration-500 ease-in-out">
             <span

@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 import { searchData } from "../../utils/helper.js";
 import useRestaurants from "../../utils/useRestaurants";
 import { FaSearch } from "react-icons/fa";
-import useOnline from "../../utils/useOnline.js";
-import Offline from "../UI/Offline.js";
+
 import Carousel from "../UI/Carousel";
 import { useDispatch, useSelector } from "react-redux";
 import Error from "../UI/Error.js";
@@ -29,7 +28,7 @@ const Body = () => {
   const filteredRestaurants = useSelector(
     (state) => state.restaurants.filteredRestaurants
   );
-  const isOnline = useOnline();
+
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
 
@@ -43,9 +42,6 @@ const Body = () => {
     dispatch(setFilteredRestaurants(filteredData));
   };
 
-  if (!isOnline) {
-    return <Offline />;
-  }
   if (error) return <Error />;
 
   return (

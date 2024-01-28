@@ -3,6 +3,7 @@ import cartSlice from "./cartSlice";
 import restaurantReducer from "./restaurantSlice";
 import authReducer from "./authSlice";
 import locationReducer from "./locationSlice";
+
 const store = configureStore({
   reducer: {
     auth: authReducer,
