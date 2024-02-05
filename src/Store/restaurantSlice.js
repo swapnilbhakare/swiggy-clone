@@ -5,12 +5,13 @@ const restaurantSlice = createSlice({
   initialState: {
     category: null,
     allRestaurants: null,
-    filteredRestaurants: null,
+    filteredRestaurants: [],
     loading: false,
     error: null,
     restaurant: null,
-    restaurantMenu: null,
+    restaurantMenu: {},
   },
+
   reducers: {
     setAllRestaurants: (state, action) => {
       state.allRestaurants = action.payload;
@@ -58,8 +59,8 @@ export const selectAllRestaurants = (state) => state.restaurants.allRestaurants;
 export const selectFilteredRestaurants = (state) =>
   state.restaurants.filteredRestaurants;
 export const selectLoading = (state) => state.restaurants.loading;
-
 export const selectError = (state) => state.restaurants.error;
 export const selectRestaurant = (state) => state.restaurants.restaurant;
-export const selectRestaurantMenu = (state) => state.restaurants.restaurantMenu;
+export const selectRestaurantMenu = (state) =>
+  state.restaurants.restaurantMenu || {};
 export default restaurantSlice.reducer;

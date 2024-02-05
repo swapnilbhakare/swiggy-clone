@@ -1,8 +1,11 @@
 import { useSelector } from "react-redux";
 
 export const searchData = (searchInput, restaurants) => {
+  if (!searchInput) return restaurants;
+
+  const lowercaseSearchInput = searchInput.toLowerCase();
   return restaurants.filter((restaurant) =>
-    restaurant?.info?.name?.toLowerCase()?.includes(searchInput.toLowerCase())
+    restaurant?.info?.name?.toLowerCase()?.includes(lowercaseSearchInput)
   );
 };
 

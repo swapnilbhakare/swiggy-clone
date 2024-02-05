@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { searchData } from "../../utils/helper.js";
 import useRestaurants from "../../utils/useRestaurants";
 import { FaSearch } from "react-icons/fa";
-
+import { debounce } from "lodash";
 import Carousel from "../UI/Carousel";
 import { useDispatch, useSelector } from "react-redux";
 import Error from "../UI/Error.js";
@@ -28,6 +28,7 @@ const Body = () => {
   const filteredRestaurants = useSelector(
     (state) => state.restaurants.filteredRestaurants
   );
+  const MemoizedRestaurantCard = React.memo(RestaurantCard);
 
   const loading = useSelector(selectLoading);
   const error = useSelector(selectError);
@@ -35,12 +36,9 @@ const Body = () => {
   useEffect(() => {
     dispatch(setFilteredRestaurants(allRestaurants));
   }, [dispatch, allRestaurants]);
-  const handleSearch = () => {
-    const filteredData = allRestaurants.filter((restaurant) =>
-      restaurant.info.name.toLowerCase().includes(searchInput.toLowerCase())
-    );
-    dispatch(setFilteredRestaurants(filteredData));
-  };
+  const handleSearch = debounce(() => {
+    dispatch(setFilteredRestaurants(searchData(searchInput, allRestaurants)));
+  }, 300);
 
   if (error) return <Error />;
 
@@ -77,7 +75,7 @@ const Body = () => {
                   key={restaurant.info.id}
                   className="m-2"
                 >
-                  <RestaurantCard restaurant={restaurant.info} />
+                  <MemoizedRestaurantCard restaurant={restaurant.info} />
                 </Link>
               ))}
             </div>
