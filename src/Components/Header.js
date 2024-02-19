@@ -18,8 +18,8 @@ const Title = () => (
     to="/"
     className="transition-transform duration-300 ease-in-out transform hover:scale-105 font-sans"
   >
-    {/* {LOGO} */}
-    <img src={logo} className="h-24 w-28 object-contain" alt="logo" />
+    {LOGO}
+    {/* <img src={logo} className="h-24 w-28 object-contain" alt="logo" /> */}
   </Link>
 );
 
