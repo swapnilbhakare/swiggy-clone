@@ -11,7 +11,7 @@ import Geolocation from "./Geolocation";
 import { useSelector } from "react-redux";
 import Modal from "./UI/Modal";
 import Auth from "./Auth";
-import logo from "../assets/img/logo.png";
+
 import { useAuthModal } from "../utils/ModalContext";
 const Title = () => (
   <Link
@@ -19,7 +19,6 @@ const Title = () => (
     className="transition-transform duration-300 ease-in-out transform hover:scale-105 font-sans"
   >
     {LOGO}
-    {/* <img src={logo} className="h-24 w-28 object-contain" alt="logo" /> */}
   </Link>
 );
 
